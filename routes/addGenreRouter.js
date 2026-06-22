@@ -1,16 +1,12 @@
 import { Router } from "express";
-import { insertGenre } from "../db/queries.js";
+import {
+  genresCreateGet,
+  genresCreatePost,
+} from "../controllers/genresController.js";
 
 const addGenreRouter = Router();
 
-addGenreRouter.get("/", (req, res) => {
-  res.render("add-genre");
-});
-
-addGenreRouter.post("/", async (req, res) => {
-  const genre = req.body;
-  await insertGenre(genre);
-  res.redirect("/");
-});
+addGenreRouter.get("/", genresCreateGet);
+addGenreRouter.post("/", genresCreatePost);
 
 export default addGenreRouter;
