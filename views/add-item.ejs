@@ -6,15 +6,41 @@
     <title>Add Item</title>
   </head>
   <body>
+    <%- include("partials/errors.ejs") %>
     <form action="/add-item" method="POST">
       <label for="title">Title</label>
-      <input type="text" id="title" name="title" required />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value="<%= data.title || '' %>"
+        required
+      />
       <label for="description">Description</label>
-      <input type="text" name="description" id="description" required />
+      <input
+        type="text"
+        name="description"
+        id="description"
+        value="<%= data.description || '' %>"
+        required
+      />
       <label for="price">Price</label>
-      <input type="number" name="price" id="price" min="1" required />
+      <input
+        type="number"
+        name="price"
+        id="price"
+        min="0"
+        value="<%= data.price || '' %>"
+        required
+      />
       <label for="release-year">Release Year</label>
-      <input type="date" name="release-year" id="release-year" required />
+      <input
+        type="date"
+        name="release-year"
+        id="release-year"
+        value="<%= data['release-year'] || '' %>"
+        required
+      />
       <fieldset>
         <legend>Genre</legend>
         <% genres.forEach(genre => { %>
@@ -29,6 +55,7 @@
       </fieldset>
       <label for="developer-select">Developer: </label>
       <select name="developer-id" id="developer-select">
+        <option value="">--Please choose an option--</option>
         <% developers.forEach(developer => { %>
         <option value="<%= developer.developer_id %>">
           <%= developer.name %>

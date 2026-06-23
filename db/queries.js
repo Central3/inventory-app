@@ -49,14 +49,16 @@ async function insertItem(item) {
   for (const genre of genres) {
     await pool.query(
       "INSERT INTO game_genre (game_id, genre_id) VALUES ($1, $2)",
-      [gameId, genre]
+      [gameId, parseInt(genre)]
     );
   }
 
-  await pool.query(
-    "INSERT INTO game_developer (game_id, developer_id) VALUES ($1, $2)",
-    [gameId, developerId]
-  );
+  if (developerId) {
+    await pool.query(
+      "INSERT INTO game_developer (game_id, developer_id) VALUES ($1, $2)",
+      [gameId, developerId]
+    );
+  }
 }
 
 export { insertGenre, getGenres, insertDeveloper, getDevelopers, insertItem };

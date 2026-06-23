@@ -6,6 +6,7 @@
     <title>Document</title>
   </head>
   <body>
+    <%- include("partials/errors.ejs") %>
     <form action="/add-genre" method="POST">
       <label for="name">Name: </label>
       <input type="text" name="name" id="name" required />
