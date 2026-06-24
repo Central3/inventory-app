@@ -40,8 +40,14 @@ async function insertItem(item) {
   } = item;
 
   const gameRes = await pool.query(
-    "INSERT INTO games (title, description, price, release_year) VALUES ($1, $2, $3, $4) RETURNING game_id",
-    [title, description, Number(price), releaseYear]
+    "INSERT INTO games (title, description, price, release_year, developer_id) VALUES ($1, $2, $3, $4, $5) RETURNING game_id",
+    [
+      title,
+      description,
+      parseInt(price),
+      releaseYear,
+      developerId === "" ? null : parseInt(developerId),
+    ]
   );
   const gameId = gameRes.rows[0].game_id;
 
@@ -50,13 +56,6 @@ async function insertItem(item) {
     await pool.query(
       "INSERT INTO game_genre (game_id, genre_id) VALUES ($1, $2)",
       [gameId, parseInt(genre)]
-    );
-  }
-
-  if (developerId) {
-    await pool.query(
-      "INSERT INTO game_developer (game_id, developer_id) VALUES ($1, $2)",
-      [gameId, developerId]
     );
   }
 }

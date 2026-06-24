@@ -23,7 +23,7 @@ const validateItem = [
 
     return true;
   }),
-  body("developer-id").toInt().optional(),
+  body("developer-id").optional(),
 ];
 
 const itemsCreateGet = async (req, res) => {
@@ -48,7 +48,6 @@ const itemsCreatePost = [
     }
 
     const item = matchedData(req);
-    console.log(item);
     await insertItem(item);
     res.redirect("/");
   },
