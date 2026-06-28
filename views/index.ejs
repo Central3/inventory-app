@@ -6,6 +6,22 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Home</h1>
+    Discover <a href="/add-item">Add Item</a>
+    <a href="/genres">Genres</a>
+    <a href="/developers">Developers</a>
+    <section class="items">
+      <% items.forEach(item => { %>
+      <h2>Title: <%= item.title %></h2>
+      <ul>
+        Genres: <% item.genres.forEach(genre => { %>
+        <li><%= genre %></li>
+        <% }); %>
+      </ul>
+      <p>Description: <%= item.description %></p>
+      <p>Developer: <%= item.developer %></p>
+      <p>Release Year: <%= item.release_year %></p>
+      <p>Price: <%= item.price %></p>
+      <% }) %>
+    </section>
   </body>
 </html>

@@ -6,6 +6,14 @@ async function getGenres() {
   return genres.rows;
 }
 
+async function getGameGenres(gameId) {
+  const genres = await pool.query(
+    "SELECT genres.name AS genre FROM games JOIN game_genre ON  games.game_id = game_genre.game_id JOIN genres ON genres.genre_id = game_genre.genre_id WHERE game_genre.game_id = $1",
+    [gameId]
+  );
+  return genres.rows;
+}
+
 async function insertGenre(genre) {
   let { name } = genre;
   name = capitalizeWords(name);
@@ -20,6 +28,14 @@ async function getDevelopers() {
   return developers.rows;
 }
 
+async function getDeveloper(developerId) {
+  const developer = await pool.query(
+    "SELECT * FROM developers WHERE developer_id = $1",
+    [developerId]
+  );
+  return developer.rows[0];
+}
+
 async function insertDeveloper(developer) {
   let { name } = developer;
   name = capitalizeWords(name);
@@ -27,6 +43,11 @@ async function insertDeveloper(developer) {
     "INSERT INTO developers (name) VALUES ($1) ON CONFLICT (name) DO NOTHING",
     [name]
   );
+}
+
+async function getItems() {
+  const items = await pool.query("SELECT * FROM games");
+  return items.rows;
 }
 
 async function insertItem(item) {
@@ -60,4 +81,13 @@ async function insertItem(item) {
   }
 }
 
-export { insertGenre, getGenres, insertDeveloper, getDevelopers, insertItem };
+export {
+  insertGenre,
+  getGenres,
+  insertDeveloper,
+  getDevelopers,
+  insertItem,
+  getItems,
+  getDeveloper,
+  getGameGenres,
+};

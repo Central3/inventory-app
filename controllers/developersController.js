@@ -21,7 +21,7 @@ const developersCreatePost = [
 
     const developer = matchedData(req);
     await insertDeveloper(developer);
-    res.redirect("/");
+    res.redirect("/developers");
   },
 ];
 

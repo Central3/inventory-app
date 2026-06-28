@@ -21,7 +21,7 @@ const genresCreatePost = [
 
     const genre = matchedData(req);
     await insertGenre(genre);
-    res.redirect("/");
+    res.redirect("/genres");
   },
 ];
 
