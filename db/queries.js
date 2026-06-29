@@ -23,6 +23,14 @@ async function insertGenre(genre) {
   );
 }
 
+async function filterOnGenre(genreId) {
+  const res = await pool.query(
+    "SELECT * FROM games JOIN game_genre ON games.game_id = game_genre.game_id JOIN genres ON genres.genre_id = game_genre.genre_id WHERE game_genre.genre_id = $1",
+    [genreId]
+  );
+  return res.rows;
+}
+
 async function getDevelopers() {
   const developers = await pool.query("SELECT * FROM developers");
   return developers.rows;
@@ -90,4 +98,5 @@ export {
   getItems,
   getDeveloper,
   getGameGenres,
+  filterOnGenre,
 };

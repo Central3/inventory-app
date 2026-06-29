@@ -5,8 +5,10 @@ import {
   getDevelopers,
   getDeveloper,
   getGameGenres,
+  filterOnGenre,
 } from "../db/queries.js";
 import { types } from "pg";
+import { capitalizeWords } from "../utils/stringFormatters.js";
 
 const indexRouter = Router();
 
@@ -34,6 +36,15 @@ indexRouter.get("/genres", async (req, res) => {
 indexRouter.get("/developers", async (req, res) => {
   const developers = await getDevelopers();
   res.render("developers", { developers });
+});
+
+indexRouter.get("/products/:genreName/:genreId", async (req, res) => {
+  const { genreId, genreName } = req.params;
+  const results = await filterOnGenre(genreId);
+  res.render("filterResults", {
+    items: results,
+    genreName: capitalizeWords(genreName),
+  });
 });
 
 export default indexRouter;

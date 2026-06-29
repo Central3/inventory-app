@@ -10,7 +10,12 @@
     <a href="/">Back</a> <a href="/add-genre">Add Genre</a>
     <ul>
       <% genres.forEach(genre => { %>
-      <li><%= genre.name %></li>
+      <li>
+        <a
+          href="/products/<%= genre.name.toLowerCase() %>/<%= genre.genre_id %>"
+          ><%= genre.name %></a
+        >
+      </li>
       <% }); %>
     </ul>
   </body>
